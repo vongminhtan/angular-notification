@@ -21,7 +21,8 @@ export class AppComponent {
       navigator.serviceWorker.getRegistration().then(swr => {
         console.log('swr', swr)
         getToken(messaging, {
-          vapidKey: this.VAPID_PUBLIC_KEY
+          vapidKey: this.VAPID_PUBLIC_KEY,
+          serviceWorkerRegistration: swr
         }).then((currentToken) => {
             if (currentToken) {
               //TODO: Send the token to your server and update the UI if necessary
