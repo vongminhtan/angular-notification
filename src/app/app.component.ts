@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {SwPush} from "@angular/service-worker";
-import {NewsletterService} from "./newsletter.service";
+import {environment} from "../environments/environment";
+import { getApps, initializeApp } from "firebase/app";
+import { getMessaging, getToken } from "firebase/messaging";
 
 @Component({
   selector: 'app-root',
@@ -10,18 +11,29 @@ import {NewsletterService} from "./newsletter.service";
 export class AppComponent {
   title = 'angular-notification';
 
-  readonly VAPID_PUBLIC_KEY = "BPGjZKgbrhOAxo6rL3X6OM8yrp21IU7yLhKicERg1wTRE-44VxxHRIh8k7rm0TTZFmnD8NfMUttuOMfX2LJRHT8";
+  readonly VAPID_PUBLIC_KEY = "BKATQCXQHnMeEbS0ZFSkIA5S-3prNq68hcfGiBM808qHsPAp03BvbItKU-UubWkcOnyZMWlpUlj640kjUEGatNU";
 
   constructor(
-    private swPush: SwPush,
-    private newsletterService: NewsletterService) {}
-
-  subscribeToNotifications() {
-
-    this.swPush.requestSubscription({
-      serverPublicKey: this.VAPID_PUBLIC_KEY
-    })
-      .then(sub => this.newsletterService.addPushSubscriber(sub).subscribe())
-      .catch(err => console.error("Could not subscribe to notifications", err));
+  ) {
+    if (getApps().length < 1) {
+      const firebaseApp =  initializeApp(environment.firebase);
+      const messaging = getMessaging(firebaseApp);
+      navigator.serviceWorker.getRegistration().then(swr => {
+        console.log('swr', swr)
+        getToken(messaging, {
+          vapidKey: this.VAPID_PUBLIC_KEY
+        }).then((currentToken) => {
+            if (currentToken) {
+              //TODO: Send the token to your server and update the UI if necessary
+              console.log('currentToken', currentToken);
+            } else {
+              // Show permission request UI
+              console.log('No registration token available. Request permission to generate one.');
+            }
+          }
+        ).catch(err => console.log('n error occurred while retrieving token.', err))
+      }).catch(err => console.log('Service worker registration failed, error:', err));
+    }
   }
+
 }
