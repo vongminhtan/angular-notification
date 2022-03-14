@@ -25,10 +25,8 @@ export class AppComponent {
           serviceWorkerRegistration: swr
         }).then((currentToken) => {
             if (currentToken) {
-              //TODO: Send the token to your server and update the UI if necessary
               console.log('currentToken', currentToken);
             } else {
-              // Show permission request UI
               console.log('No registration token available. Request permission to generate one.');
             }
           }
