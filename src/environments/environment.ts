@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDdaps3NOnIEY9sFRsOQKHi0OEORCNVtu0",
-    authDomain: "notification-4af71.firebaseapp.com",
-    databaseURL: "https://notification-4af71.firebaseio.com",
-    projectId: "notification-4af71",
-    storageBucket: "notification-4af71.appspot.com",
-    messagingSenderId: "514064472769",
-    appId: "1:514064472769:web:0fd9285961027348b7d240"
+    apiKey: "AIzaSyDD3YHcjyxqdQ5gu6lPhdgGrINLe_B-mHQ",
+    authDomain: "test-notification-be682.firebaseapp.com",
+    projectId: "test-notification-be682",
+    storageBucket: "test-notification-be682.appspot.com",
+    messagingSenderId: "354436930870",
+    appId: "1:354436930870:web:9a23e9ee63c21553356797"
   }
 };
 

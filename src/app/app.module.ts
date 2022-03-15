@@ -17,7 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: true,
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
